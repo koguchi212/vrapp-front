@@ -1,10 +1,11 @@
-import React from 'react';
-import MyComponent from './MyComponent';
+import React from "react";
+import ReactSpeechRecognitionComponent from "./ReactSpeechRecognitionComponent";
 
 const App = () => {
   return (
-    <div className="App">
-      <MyComponent />
+    <div>
+      <h1>React Speech Recognition</h1>
+      <ReactSpeechRecognitionComponent />
     </div>
   );
 };
