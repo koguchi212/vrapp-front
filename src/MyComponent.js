@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense, unstable_startTransition as startTransition } from 'react';
+import { Canvas, useLoader } from 'react-three-fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import ReactSpeechRecognitionComponent from './ReactSpeechRecognitionComponent';
 
 const MyComponent = () => {
   const [prompt, setPrompt] = useState('');
-  const [glb_fail_path, setGlbFailPath] = useState('');
+  const [glbFilePath, setGlbFilePath] = useState('');
+
+  useEffect(() => {
+    if (glbFilePath) {
+      console.log('GLBファイルパス:', glbFilePath);
+    }
+  }, [glbFilePath]);
 
   const handlePromptChange = (event) => {
     setPrompt(event.target.value);
@@ -15,7 +23,7 @@ const MyComponent = () => {
 
   const onClickHandler = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/", {
+      const response = await fetch('http://127.0.0.1:5000/', {
         mode: 'cors',
         method: 'post',
         headers: {
@@ -25,10 +33,17 @@ const MyComponent = () => {
       });
 
       const json = await response.json();
-      setGlbFailPath(json['glb_file_path']);
+      startTransition(() => {
+        setGlbFilePath(json['glb_file_path']);
+      });
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const Model = () => {
+    const gltf = useLoader(GLTFLoader, glbFilePath);
+    return <primitive object={gltf.scene} dispose={null} />;
   };
 
   return (
@@ -36,9 +51,17 @@ const MyComponent = () => {
       <ReactSpeechRecognitionComponent onResult={handleSpeechRecognitionResult} />
       <input type="text" value={prompt} onChange={handlePromptChange} />
       <button onClick={onClickHandler}>Submit</button>
-      {glb_fail_path && <p>{glb_fail_path}</p>}
+      {glbFilePath && (
+        <Canvas>
+          <Suspense fallback={null}>
+            <ambientLight />
+            <Model />
+          </Suspense>
+        </Canvas>
+      )}
     </div>
   );
 };
 
 export default MyComponent;
+
