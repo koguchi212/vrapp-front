@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box, Button, Input, Heading, Text } from "@chakra-ui/react";
 import ReactSpeechRecognitionComponent from './ReactSpeechRecognitionComponent';
 
 const MyComponent = () => {
@@ -32,12 +33,15 @@ const MyComponent = () => {
   };
 
   return (
-    <div>
+    <Box>
       <ReactSpeechRecognitionComponent onResult={handleSpeechRecognitionResult} />
       <input type="text" value={prompt} onChange={handlePromptChange} />
       <button onClick={onClickHandler}>Submit</button>
-      {response && <p>{response}</p>}
-    </div>
+      <Heading as="h2" size="md">
+        <h2>chatgpt-apiを使って得た画像生成用プロンプト</h2>
+      </Heading>
+      {response && <Text>{response}</Text>}
+    </Box>
   );
 };
 
