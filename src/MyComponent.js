@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Box, Button, Input, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Heading, Text, Flex } from "@chakra-ui/react";
 import ReactSpeechRecognitionComponent from "./ReactSpeechRecognitionComponent";
 
 const MyComponent = () => {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
+  const [buttonColor, setButtonColor] = useState("green");
 
   const handlePromptChange = (event) => {
     setPrompt(event.target.value);
@@ -27,23 +28,31 @@ const MyComponent = () => {
 
       const json = await response.json();
       setResponse(json["response"]);
+      setButtonColor("lightBlue"); // ボタンの色を変更
     } catch (error) {
       console.error(error);
     }
   };
 
+  const resetHandler = () => {
+    setPrompt("");
+    setResponse("");
+    setButtonColor("green"); // ボタンの色を元に戻す
+  };
+
   return (
     <Box>
       <ReactSpeechRecognitionComponent onResult={handleSpeechRecognitionResult} />
-      <Input type="text" value={prompt} onChange={handlePromptChange} />
-      <Button 
-        onClick={onClickHandler}
-        colorScheme="green"
-        mt="8"
-      >
-        Submit
-      </Button>
-      <Heading as="h2" size="md">
+      <Flex mt={8}>
+        <Input type="text" value={prompt} onChange={handlePromptChange} bgColor="white" borderColor="gray.400" mr={2} />
+        <Button onClick={onClickHandler} colorScheme={buttonColor}>
+          Submit
+        </Button>
+        <Button onClick={resetHandler} colorScheme="red" ml={2}>
+          Reset
+        </Button>
+      </Flex>
+      <Heading as="h2" size="md" mt={8}>
         chatgpt-apiを使って得た画像生成用プロンプト
       </Heading>
       {response && <Text>{response}</Text>}
