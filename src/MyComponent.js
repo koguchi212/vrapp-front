@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Box, Button, Input, Heading, Text } from "@chakra-ui/react";
-import ReactSpeechRecognitionComponent from './ReactSpeechRecognitionComponent';
+import ReactSpeechRecognitionComponent from "./ReactSpeechRecognitionComponent";
 
 const MyComponent = () => {
-  const [prompt, setPrompt] = useState('');
-  const [response, setResponse] = useState('');
+  const [prompt, setPrompt] = useState("");
+  const [response, setResponse] = useState("");
 
   const handlePromptChange = (event) => {
     setPrompt(event.target.value);
@@ -17,16 +17,16 @@ const MyComponent = () => {
   const onClickHandler = async () => {
     try {
       const response = await fetch("http://127.0.0.1:5000/", {
-        mode: 'cors',
-        method: 'post',
+        mode: "cors",
+        method: "post",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ prompt: prompt }),
       });
 
       const json = await response.json();
-      setResponse(json['response']);
+      setResponse(json["response"]);
     } catch (error) {
       console.error(error);
     }
@@ -35,10 +35,16 @@ const MyComponent = () => {
   return (
     <Box>
       <ReactSpeechRecognitionComponent onResult={handleSpeechRecognitionResult} />
-      <input type="text" value={prompt} onChange={handlePromptChange} />
-      <button onClick={onClickHandler}>Submit</button>
+      <Input type="text" value={prompt} onChange={handlePromptChange} />
+      <Button 
+        onClick={onClickHandler}
+        colorScheme="green"
+        mt="8"
+      >
+        Submit
+      </Button>
       <Heading as="h2" size="md">
-        <h2>chatgpt-apiを使って得た画像生成用プロンプト</h2>
+        chatgpt-apiを使って得た画像生成用プロンプト
       </Heading>
       {response && <Text>{response}</Text>}
     </Box>

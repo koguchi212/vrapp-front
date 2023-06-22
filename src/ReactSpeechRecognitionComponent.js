@@ -38,13 +38,16 @@ const ReactSpeechRecognitionComponent = ({ onResult }) => {
   return (
     <Box id="react-speech-recognition">
       <Text>入力: {listening ? "on" : "off"}</Text>
-      <Button type="button" onClick={startListening}>
+      <Button type="button" onClick={startListening} colorScheme="blue"
+        mt="8">
         入力開始
       </Button>
-      <Button type="button" onClick={stopListening}>
+      <Button type="button" onClick={stopListening} colorScheme="blue"
+        mt="8">
         Stop
       </Button>
-      <Button type="button" onClick={resetTranscriptHandler}>
+      <Button type="button" onClick={resetTranscriptHandler} colorScheme="blue"
+        mt="8">
         リセット
       </Button>
       <Text>{transcript}</Text>

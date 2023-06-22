@@ -1,20 +1,23 @@
 import React from "react";
 import MyComponent from "./MyComponent";
-import { ChakraProvider } from "@chakra-ui/react";
-import theme from "./theme";
-import { Box, Button, Input, Heading, Text } from "@chakra-ui/react";
+import  ReactSpeechRecognitionComponent from "./ReactSpeechRecognitionComponent";
+import {VrTitle} from "./VrTitle";
+import { Container } from "@chakra-ui/react";
+
 
 
 const App = () => {
   return (
-    <ChakraProvider theme={theme}>
-      <div>
-        <Heading  as="h2" size="md">
-          <h1>React Speech Recognition</h1>
-        </Heading>
+    <>
+      <Container centerContent p={{ base: "4", md: "6" }} maxWidth="3xl">
+        <VrTitle 
+          title="VRアプリ"
+          as="h1"
+          fontSize={{ base: "2xl", md: "4xl" }}
+        />
         <MyComponent />
-      </div>
-    </ChakraProvider>
+      </Container>
+    </>
   );
 };
 
