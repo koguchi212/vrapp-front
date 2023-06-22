@@ -3,7 +3,7 @@ import ReactSpeechRecognitionComponent from './ReactSpeechRecognitionComponent';
 
 const MyComponent = () => {
   const [prompt, setPrompt] = useState('');
-  const [glb_fail_path, setGlbFailPath] = useState('');
+  const [response, setResponse] = useState('');
 
   const handlePromptChange = (event) => {
     setPrompt(event.target.value);
@@ -25,7 +25,7 @@ const MyComponent = () => {
       });
 
       const json = await response.json();
-      setGlbFailPath(json['glb_file_path']);
+      setResponse(json['response']);
     } catch (error) {
       console.error(error);
     }
@@ -36,7 +36,7 @@ const MyComponent = () => {
       <ReactSpeechRecognitionComponent onResult={handleSpeechRecognitionResult} />
       <input type="text" value={prompt} onChange={handlePromptChange} />
       <button onClick={onClickHandler}>Submit</button>
-      {glb_fail_path && <p>{glb_fail_path}</p>}
+      {response && <p>{response}</p>}
     </div>
   );
 };
