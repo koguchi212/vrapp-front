@@ -1,5 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import { Box, Button, Text, Flex } from "@chakra-ui/react";
+
 
 const ReactSpeechRecognitionComponent = ({ onResult }) => {
   const {
@@ -34,19 +36,21 @@ const ReactSpeechRecognitionComponent = ({ onResult }) => {
   };
 
   return (
-    <div id="react-speech-recognition">
-      <p>入力: {listening ? "on" : "off"}</p>
-      <button type="button" onClick={startListening}>
-        入力開始
-      </button>
-      <button type="button" onClick={stopListening}>
+    <Box id="react-speech-recognition">
+      <Text>入力: {listening ? "on" : "off"}</Text>
+    <Flex direction="row" mt={8}>
+      <Button type="button" onClick={startListening} colorScheme="blue" mr={4}>
+        録音開始
+      </Button>
+      <Button type="button" onClick={stopListening} colorScheme="blue" mr={4}>
         Stop
-      </button>
-      <button type="button" onClick={resetTranscriptHandler}>
+      </Button>
+      <Button type="button" onClick={resetTranscriptHandler} colorScheme="blue">
         リセット
-      </button>
-      <p>{transcript}</p>
-    </div>
+      </Button>
+    </Flex>
+    <Text>{transcript}</Text>
+    </Box>
   );
 };
 
