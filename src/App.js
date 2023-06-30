@@ -15,7 +15,12 @@ const App = () => {
           maxWidth="2xl"
         >
           <VrTitle
-            title="なりきり創造主"
+            title={
+              <>
+                なりきり
+                <span style={{ color: "orange" }}>創造主</span>
+              </>
+            }
             as="h1"
             fontSize={{ base: "2xl", md: "4xl" }}
           />
@@ -27,4 +32,3 @@ const App = () => {
 };
 
 export default App;
-
